@@ -1,18 +1,16 @@
 package org.example.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class CustomerDTO {
+public class NotificationDTO {
 
-    private String name;
-    private String email;
-    private int age;
+    private String message;
+    private String sender;
 }

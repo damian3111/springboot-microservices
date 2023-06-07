@@ -2,8 +2,8 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.NotificationDTO;
-import org.example.entity.Notification;
 import org.example.service.NotificationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +17,10 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @PostMapping
-    public Notification sendMessage(@RequestBody NotificationDTO notificationDTO){
-        return notificationService.sendMessage(notificationDTO);
+    public ResponseEntity<String> sendMessage(@RequestBody NotificationDTO notificationDTO){
+    notificationService.sendMessage(notificationDTO);
+
+    return ResponseEntity.ok("message has been sent");
     }
 
 }
