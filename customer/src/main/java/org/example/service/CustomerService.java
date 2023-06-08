@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public Customer getCustomer(Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("no such user"));
@@ -25,9 +25,9 @@ public class CustomerService {
     public Customer saveCustomer(CustomerDTO dto) {
         NotificationDTO notification = new NotificationDTO("message1", "sender1");
 
-        String response = webClient
+        String response = webClientBuilder.build()
                 .post()
-                .uri("http://localhost:8081/v1/notification")
+                .uri("http://NOTIFICATION/v1/notification")
                 .body(BodyInserters.fromValue(notification))
                 .retrieve()
                 .bodyToMono(String.class)
