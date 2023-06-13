@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,6 +16,12 @@ import java.util.List;
 
 @Configuration
 public class EurekaConfig {
+
+    @Value("${user.username}")
+    private String username;
+
+    @Value("${user.password}")
+    private String password;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -32,6 +39,6 @@ public class EurekaConfig {
 
     @Bean
     InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-        return new InMemoryUserDetailsManager(new User("user", "password", List.of(() -> "USER")));
+        return new InMemoryUserDetailsManager(new User(username, password, List.of(() -> "USER")));
     }
 }
