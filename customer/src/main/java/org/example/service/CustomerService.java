@@ -22,7 +22,7 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("no such user"));
     }
 
-    public Customer saveCustomer(CustomerDTO dto) {
+    public String saveCustomer(CustomerDTO dto) {
         NotificationDTO notification = new NotificationDTO("message1", "sender1");
 
         String response = webClientBuilder.build()
@@ -42,6 +42,7 @@ public class CustomerService {
                 .name(dto.getName())
                 .build();
 
-        return customerRepository.save(customer);
+         customerRepository.save(customer);
+         return "customer saved";
     }
 }
