@@ -6,8 +6,8 @@ import org.example.dto.CustomerDTO;
 import org.example.dto.NotificationDTO;
 import org.example.entity.Customer;
 import org.example.repository.CustomerRepository;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
@@ -17,6 +17,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final WebClient.Builder webClientBuilder;
+    private final KafkaTemplate<String, NotificationDTO> kafkaTemplate;
 
     public Customer getCustomer(Long id) {
         return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("no such user"));
@@ -25,16 +26,15 @@ public class CustomerService {
     public String saveCustomer(CustomerDTO dto) {
         NotificationDTO notification = new NotificationDTO("message1", "sender1");
 
-        String response = webClientBuilder.build()
-                .post()
-                .uri("http://NOTIFICATION/v1/notification")
-                .body(BodyInserters.fromValue(notification))
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+//        String response = webClientBuilder.build()
+//                .post()
+//                .uri("http://NOTIFICATION/v1/notification")
+//                .body(BodyInserters.fromValue(notification))
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .block();
 
-        log.info("reponse: " + response);
-
+        kafkaTemplate.send("topic4", notification);
 
         Customer customer = Customer.builder()
                 .age(dto.getAge())

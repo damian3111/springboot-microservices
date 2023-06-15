@@ -28,8 +28,7 @@ public class CustomerController {
     @CircuitBreaker(name = "notification", fallbackMethod = "fallbackMethod2")
     @TimeLimiter(name = "notification")
     @PostMapping
-    public CompletableFuture<String> getCustomer(@RequestBody CustomerDTO dto){
-
+    public CompletableFuture<String> sendCustomer(@RequestBody CustomerDTO dto){
         return CompletableFuture.supplyAsync(() -> customerService.saveCustomer(dto));
     }
 
