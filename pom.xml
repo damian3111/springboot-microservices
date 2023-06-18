@@ -24,8 +24,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <spring.boot.maven.plugin.version>3.1.0</spring.boot.maven.plugin.version>
         <spring.boot.dependencies.version>3.1.0</spring.boot.dependencies.version>
-
         <spring.cloug.version>2022.0.3</spring.cloug.version>
+        <image.path>eclipse-temurin:17.0.4.1_1-jre</image.path>
     </properties>
 
 
@@ -73,6 +73,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
@@ -83,6 +90,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
 
